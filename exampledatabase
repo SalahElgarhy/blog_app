@@ -1,0 +1,39 @@
+const { error } = require("console");
+const mysql = require("mysql2");
+const { resourceUsage } = require("process");
+
+
+
+
+// Create the connection to database
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'blogs_app',
+});
+
+db.connect((error) => {
+    if (error) 
+        return console.log(`failed to connect to DB because ${error.message}!`)
+     return console.log("connect to DB")
+       
+    
+})
+
+// sql query
+// add user
+const full_name = "mahmoud ahmed";
+const email = "mahmoud@yahoo.com";
+const password = "m12344";
+const dob = "2008-8-8";
+
+const sqlstatment = `INSERT INTO users (full_name , email , password , dob) values (?,? ,? ,?)`;
+ 
+const values = [full_name, email, password, dob];
+
+db.execute(sqlstatment, values,(error, results) => {
+    if (error) return console.log(error);
+    return console.log(results);
+})
+
